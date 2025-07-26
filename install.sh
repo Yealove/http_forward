@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "=== Callback网页服务安装脚本 ==="
+echo "=== Http转发服务安装脚本 ==="
 
 # 检查Node.js版本
 node_version=$(node --version 2>/dev/null || echo "未安装")

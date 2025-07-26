@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "=== 启动Callback网页服务 ==="
+echo "=== 启动Http转发服务 ==="
 
 # 检查数据库和构建文件
 if [ ! -f "frontend/dist/index.html" ]; then

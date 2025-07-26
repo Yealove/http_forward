@@ -1,7 +1,7 @@
 {
-  "name": "callback-frontend",
+  "name": "http-forward-frontend",
   "version": "1.0.0",
-  "description": "Callback服务前端应用",
+  "description": "Http转发服务前端应用",
   "type": "module",
   "scripts": {
     "dev": "vite",

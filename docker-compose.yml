@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  callback-service:
+  http-forward-service:
     build:
       context: .
       dockerfile: Dockerfile
-    image: local-callback:latest
-    container_name: local-callback-service
+    image: http-forward:latest
+    container_name: http-forward-service
     ports:
       - "3000:3000"
     environment:
@@ -14,10 +14,10 @@ services:
       - PORT=3000
     volumes:
       # 持久化数据库文件
-      - callback_data:/app/backend/database
+      - http_forward_data:/app/backend/database
     restart: unless-stopped
     networks:
-      - callback-network
+      - http-forward-network
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 30s
@@ -26,9 +26,9 @@ services:
       start_period: 60s
 
 volumes:
-  callback_data:
+  http_forward_data:
     driver: local
 
 networks:
-  callback-network:
+  http-forward-network:
     driver: bridge

@@ -22,8 +22,8 @@
 
     <!-- 标签页 -->
     <el-tabs v-model="activeTab" class="app-tabs">
-      <!-- Callback地址管理 -->
-      <el-tab-pane label="Callback地址" name="callbacks">
+      <!-- Http转发地址管理 -->
+      <el-tab-pane label="转发地址" name="callbacks">
         <CallbackManager 
           :app-id="id" 
           :root-path="application.root_path"

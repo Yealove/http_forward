@@ -2,8 +2,8 @@
   <div class="callback-manager">
     <div class="manager-header">
       <div class="header-left">
-        <h3>Callback地址管理</h3>
-        <p class="header-desc">管理应用下的回调地址，每个地址可配置多个转发目标</p>
+        <h3>Http转发地址管理</h3>
+        <p class="header-desc">管理应用下的转发地址，每个地址可配置多个转发目标</p>
       </div>
       <el-button type="primary" @click="showCreateDialog = true">
         <el-icon><Plus /></el-icon>
@@ -137,7 +137,7 @@
     <!-- 空状态 -->
     <el-empty 
       v-if="callbacks.length === 0" 
-      description="暂无Callback地址"
+      description="暂无转发地址"
       :image-size="160"
     >
       <el-button type="primary" @click="showCreateDialog = true">
@@ -146,10 +146,10 @@
       </el-button>
     </el-empty>
 
-    <!-- 创建Callback地址对话框 -->
+    <!-- 创建转发地址对话框 -->
     <el-dialog 
       v-model="showCreateDialog" 
-      title="创建Callback地址" 
+      title="创建转发地址" 
       width="500px"
       :before-close="handleCreateDialogClose"
     >
@@ -157,7 +157,7 @@
         <el-form-item label="地址名称" prop="name">
           <el-input v-model="createForm.name" placeholder="请输入地址名称" />
         </el-form-item>
-        <el-form-item label="回调路径" prop="path">
+        <el-form-item label="转发路径" prop="path">
           <el-input v-model="createForm.path" placeholder="例如: webhook/order">
             <template #prepend>{{ rootPath }}/</template>
           </el-input>
@@ -175,10 +175,10 @@
       </template>
     </el-dialog>
 
-    <!-- 编辑Callback地址对话框 -->
+    <!-- 编辑转发地址对话框 -->
     <el-dialog 
       v-model="showEditDialog" 
-      title="编辑Callback地址" 
+      title="编辑转发地址" 
       width="500px"
       :before-close="handleEditDialogClose"
     >
@@ -186,7 +186,7 @@
         <el-form-item label="地址名称" prop="name">
           <el-input v-model="editForm.name" placeholder="请输入地址名称" />
         </el-form-item>
-        <el-form-item label="回调路径" prop="path">
+        <el-form-item label="转发路径" prop="path">
           <el-input v-model="editForm.path" placeholder="例如: webhook/order">
             <template #prepend>{{ rootPath }}/</template>
           </el-input>
@@ -384,7 +384,7 @@ const loadCallbacks = async () => {
       }, 500)
     }
   } catch (error) {
-    console.error('加载Callback地址失败:', error)
+    console.error('加载转发地址失败:', error)
   }
 }
 
@@ -398,12 +398,12 @@ const createCallback = async () => {
   creating.value = true
   try {
     await callbackApi.create(props.appId, createForm.value.name, createForm.value.path)
-    ElMessage.success('Callback地址创建成功')
+    ElMessage.success('转发地址创建成功')
     showCreateDialog.value = false
     resetCreateForm()
     loadCallbacks()
   } catch (error) {
-    console.error('创建Callback地址失败:', error)
+    console.error('创建转发地址失败:', error)
   } finally {
     creating.value = false
   }
@@ -451,12 +451,12 @@ const updateCallback = async () => {
       editForm.value.auto_forward,
       responseConfig
     )
-    ElMessage.success('Callback地址更新成功')
+    ElMessage.success('转发地址更新成功')
     showEditDialog.value = false
     resetEditForm()
     loadCallbacks()
   } catch (error) {
-    console.error('更新Callback地址失败:', error)
+    console.error('更新转发地址失败:', error)
   } finally {
     editing.value = false
   }
@@ -466,7 +466,7 @@ const updateCallback = async () => {
 const deleteCallback = async (callback) => {
   try {
     await ElMessageBox.confirm(
-      `确定要删除Callback地址 "${callback.name}" 吗？此操作将同时删除相关的消息记录。`,
+      `确定要删除转发地址 "${callback.name}" 吗？此操作将同时删除相关的消息记录。`,
       '删除确认',
       {
         confirmButtonText: '确定删除',
@@ -477,11 +477,11 @@ const deleteCallback = async (callback) => {
     )
 
     await callbackApi.delete(callback.id)
-    ElMessage.success('Callback地址删除成功')
+    ElMessage.success('转发地址删除成功')
     loadCallbacks()
   } catch (error) {
     if (error === 'cancel') return
-    console.error('删除Callback地址失败:', error)
+    console.error('删除转发地址失败:', error)
   }
 }
 

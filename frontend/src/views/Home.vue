@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="header-left">
         <h2>应用管理</h2>
-        <p class="header-desc">管理您的Callback应用，每个应用可包含多个回调地址</p>
+        <p class="header-desc">管理您的Http转发应用，每个应用可包含多个转发地址</p>
       </div>
       <div class="header-right">
         <el-button type="primary" @click="showCreateDialog = true">

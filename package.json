@@ -1,7 +1,7 @@
 {
-  "name": "local-callback",
+  "name": "http-forward",
   "version": "1.0.0",
-  "description": "一个用于接收callback调用的服务，支持实时推送和转发功能",
+  "description": "Http转发服务，支持HTTP请求接收、实时推送和自动转发功能",
   "main": "backend/app.js",
   "scripts": {
     "start": "node backend/app.js",
@@ -27,7 +27,9 @@
     "nodemon": "^3.0.1"
   },
   "keywords": [
-    "callback",
+    "http",
+    "forward",
+    "转发",
     "webhook",
     "nodejs",
     "vue3",

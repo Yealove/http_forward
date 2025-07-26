@@ -1,4 +1,4 @@
-# Docker 部署指南
+# Http转发服务 Docker 部署指南
 
 ## 快速启动
 
@@ -43,12 +43,12 @@ docker-compose ps
 
 ### 开发环境
 ```bash
-docker build -t local-callback:dev .
+docker build -t http-forward:dev .
 ```
 
 ### 生产环境
 ```bash
-docker build -f Dockerfile.prod -t local-callback:prod .
+docker build -f Dockerfile.prod -t http-forward:prod .
 ```
 
 ## 运行选项
@@ -56,10 +56,10 @@ docker build -f Dockerfile.prod -t local-callback:prod .
 ### 单容器运行
 ```bash
 # 开发版本
-docker run -d -p 3000:3000 --name callback-service local-callback:dev
+docker run -d -p 3000:3000 --name http-forward-service http-forward:dev
 
 # 生产版本
-docker run -d -p 3000:3000 --name callback-service local-callback:prod
+docker run -d -p 3000:3000 --name http-forward-service http-forward:prod
 ```
 
 ### 使用Docker Compose（推荐）
@@ -79,21 +79,21 @@ docker-compose logs -f
 
 ## 数据持久化
 
-数据库文件默认挂载到Docker卷 `callback_data`，确保数据不会因容器重启而丢失。
+数据库文件默认挂载到Docker卷 `http_forward_data`，确保数据不会因容器重启而丢失。
 
 ### 备份数据
 ```bash
 # 查看卷位置
-docker volume inspect callback_data
+docker volume inspect http_forward_data
 
 # 备份数据库
-docker run --rm -v callback_data:/data -v $(pwd):/backup alpine cp /data/callback.db /backup/
+docker run --rm -v http_forward_data:/data -v $(pwd):/backup alpine cp /data/callback.db /backup/
 ```
 
 ### 恢复数据
 ```bash
 # 恢复数据库
-docker run --rm -v callback_data:/data -v $(pwd):/backup alpine cp /backup/callback.db /data/
+docker run --rm -v http_forward_data:/data -v $(pwd):/backup alpine cp /backup/callback.db /data/
 ```
 
 ## 环境变量
@@ -114,19 +114,19 @@ environment:
 
 ## 网络配置
 
-默认创建名为 `callback-network` 的桥接网络。
+默认创建名为 `http-forward-network` 的桥接网络。
 
 ### 连接其他服务
 ```yaml
 services:
-  callback-service:
+  http-forward-service:
     # ... 其他配置
     networks:
-      - callback-network
+      - http-forward-network
       - external-network
 
 networks:
-  callback-network:
+  http-forward-network:
     driver: bridge
   external-network:
     external: true
@@ -143,7 +143,7 @@ networks:
 ### 查看健康状态
 ```bash
 docker-compose ps
-docker inspect --format='{{.State.Health.Status}}' local-callback-service
+docker inspect --format='{{.State.Health.Status}}' http-forward-service
 ```
 
 ## 日志管理
@@ -157,13 +157,13 @@ docker-compose logs -f
 docker-compose logs --tail=50
 
 # 特定服务日志
-docker-compose logs callback-service
+docker-compose logs http-forward-service
 ```
 
 ### 日志轮转（生产环境推荐）
 ```yaml
 services:
-  callback-service:
+  http-forward-service:
     logging:
       driver: "json-file"
       options:
@@ -176,7 +176,7 @@ services:
 ### 资源限制
 ```yaml
 services:
-  callback-service:
+  http-forward-service:
     deploy:
       resources:
         limits:
@@ -190,7 +190,7 @@ services:
 ### 多副本部署
 ```yaml
 services:
-  callback-service:
+  http-forward-service:
     deploy:
       replicas: 3
       update_config:
@@ -235,14 +235,14 @@ services:
 ### 调试模式
 ```bash
 # 进入容器
-docker-compose exec callback-service sh
+docker-compose exec http-forward-service sh
 
 # 查看进程
-docker-compose exec callback-service ps aux
+docker-compose exec http-forward-service ps aux
 
 # 检查网络
 docker network ls
-docker network inspect local_callback_callback-network
+docker network inspect local_callback_http-forward-network
 ```
 
 ## 更新和维护

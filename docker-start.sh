@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Callback Web Service Docker 启动脚本
+# Http转发服务 Docker 启动脚本
 
-echo "🚀 启动 Callback Web Service..."
+echo "🚀 启动 Http转发服务..."
 
 # 检查Docker是否安装
 if ! command -v docker &> /dev/null; then
@@ -36,7 +36,7 @@ echo "📝 显示最近日志..."
 docker-compose logs --tail=20
 
 echo ""
-echo "✅ Callback Web Service 已启动！"
+echo "✅ Http转发服务 已启动！"
 echo "🌐 访问地址: http://localhost:3000"
 echo ""
 echo "常用命令:"
