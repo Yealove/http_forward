@@ -1,0 +1,38 @@
+{
+  "name": "local-callback",
+  "version": "1.0.0",
+  "description": "一个用于接收callback调用的服务，支持实时推送和转发功能",
+  "main": "backend/app.js",
+  "scripts": {
+    "start": "node backend/app.js",
+    "server": "node backend/app.js", 
+    "dev": "cd frontend && npm run dev",
+    "dev:server": "nodemon backend/app.js",
+    "build": "cd frontend && npm run build",
+    "install:backend": "npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "stop": "./stop.sh"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "sqlite3": "^5.1.6",
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "callback",
+    "webhook",
+    "nodejs",
+    "vue3",
+    "websocket"
+  ],
+  "author": "",
+  "license": "MIT"
+}

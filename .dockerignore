@@ -1,0 +1,54 @@
+# Node modules
+node_modules/
+frontend/node_modules/
+
+# 开发文件
+*.log
+npm-debug.log*
+.nyc_output
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# 测试和开发文件
+test/
+tests/
+*.test.js
+test-*.js
+
+# 文档
+README.md
+*.md
+
+# 环境变量文件
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# 缓存
+.cache/
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 构建产物（frontend/dist会通过多阶段构建复制）
+frontend/dist/
+
+# 数据库文件（运行时创建）
+backend/database/*.db
+
+# 脚本文件
+*.sh
+install.sh
+start.sh
+stop.sh
